@@ -1,0 +1,2 @@
+# algolib
+Implementation of algorithms
