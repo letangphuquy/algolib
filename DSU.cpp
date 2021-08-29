@@ -2,9 +2,9 @@ class DisjointSet {
 private :
 	int size; int* label;
 public :
-	DSU(int size) : size(size) {
-	    label = new int[size];
-	    memset(label, -1, sizeof(label));
+	DisjointSet(int size) : size(size) {
+	    label = new int[size + 1];
+	    for (int i = 0; i <= size; i++) label[i] = -1;
   	}
   	
   	int find_root(int u) {
