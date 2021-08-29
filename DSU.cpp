@@ -1,26 +1,25 @@
-/*Disjoint-Set Unions*/
-class DSU {
+class DisjointSet {
 private :
-  int size;
-  int* label;
-  
-  int find_root(int u) const {
-    if (label[u] < 0) return u;
-    return label[u] = find_root(label[u]);
-  }
-  
-  bool merge_set(int u, int v) {
-    u = find_root(u), v = find_root(v);
-    if (u == v) return false;
-    if (-(label[u]) < -(label[v]) swap(u,v);
-    return label[u] += label[v], label[v] = u, true;
-  }
+	int size; int* label;
 public :
-  DSU(int size) : size(size) {
-    label = new int[size];
-    memset(label, -1, sizeof(label));
-  }
-  bool join(int a, int b) { 
-    return merge_set(u,v);
-  }
+	DSU(int size) : size(size) {
+	    label = new int[size];
+	    memset(label, -1, sizeof(label));
+  	}
+  	
+  	int find_root(int u) {
+    	if (label[u] < 0) return u;
+    	return label[u] = find_root(label[u]);
+  	}
+  
+  	bool merge_set(int u, int v) {
+    	u = find_root(u), v = find_root(v);
+	    if (u == v) return false;
+	    if (-(label[u]) < -(label[v])) swap(u,v);
+	    return label[u] += label[v], label[v] = u, true;
+  	}
+  	
+  	bool same_set(int a, int b) { 
+    	return find_root(a) == find_root(b);
+  	}
 };
