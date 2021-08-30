@@ -35,8 +35,8 @@ const int MOD = 2004010501;
 int n;
 
 void generate_input() {
-	  n = 1e5;
-	  cout << n << '\n';
+	n = 1e5;
+	cout << n << '\n';
 }
 
 void generate_output() {
@@ -55,7 +55,7 @@ int main()
         char * file = new char [name.length()+1];
         strcpy(file, name.c_str());
         freopen(file, "w", stdout);
-		    generate_input();
+	generate_input();
     }
 
     /**          GENERATE OUTPUT          **/
@@ -71,7 +71,7 @@ int main()
         strcpy(outfile, outname.c_str());
         freopen(inpfile, "r",  stdin);
         freopen(outfile, "w", stdout);
-		    generate_output();
+	generate_output();
         cout.flush();
     }
 }
