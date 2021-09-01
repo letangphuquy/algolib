@@ -42,9 +42,10 @@ struct SegmentTree {
 		int result = query(x*2, l, mid, L, R) + query(x*2+1, mid+1, r, L, R);
 		/*
 		Node result;
-		push_up(result, query(x*2,l,mid,L,R), query(x*2+1,mid+1,r,L,R);
+		push_up(result, query(x*2,l,mid,L,R), query(x*2+1,mid+1,r,L,R));
 		*/
 		return result;
+		
 	}
 	void range_update(int x, int l, int r, const int& L, const int& R, const int& delta) {
 		if (l > R or L > r) return ;
