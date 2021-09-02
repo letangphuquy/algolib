@@ -24,47 +24,36 @@ void decompose(int u, bool is_head) {
 }
 
 struct SegTree { //new style
-	int range, Xor[2 * MAXN];
+	int range, nodes[2 * MAXN];
 	SegTree() {}
-	void build(int* a) {
-		for (int i = 1; i <= range; i++) Xor[i+range] = a[i];
-		for (int i = range; i > 0; i--) Xor[i] = Xor[2*i] ^ Xor[2*i+1];
-	}
-	SegTree(int range, int* a) : range(range) { build(a); }
+	SegTree(int range) : range(range) {}
 	void update(int pos, int new_val) {
-		Xor[pos += range] = new_val;
-		for (; pos > 0; pos >>= 1) Xor[pos >> 1] = Xor[pos] ^ Xor[pos ^ 1];
+		nodes[pos += range] = new_val;
+		for (; pos > 0; pos >>= 1) nodes[pos >> 1] = nodes[pos] + nodes[pos ^ 1];
 	}
 	int query(int l, int r) {
 		int res = 0;
 		for (l += range, r += range; l <= r; l /= 2, r /= 2) {
-			if ((l&1)) res ^= Xor[l++];
-			if ((r&1) == 0) res ^= Xor[r--];
+			if ((l&1)) res += Xor[l++];
+			if ((r&1) == 0) res += Xor[r--];
 		}
 		return res;
 	}
 } solver;
 
-int val[MAXN], real_val[MAXN];
-
 int path_query(int u, int v) {
 	int res = 0;
 	for (; head[u] != head[v]; v = parent[head[v]]) {
 		if (depth[head[u]] > depth[head[v]]) swap(u,v);
-		res ^= solver.query(pos[head[v]], pos[v]);
+		res += solver.query(pos[head[v]], pos[v]);
 	}
 	if (depth[u] > depth[v]) swap(u,v);
-	res ^= solver.query(pos[u], pos[v]);
+	res += solver.query(pos[u], pos[v]);
 	return res;
 }
 
 int main()
 {
-	#define task "cowland"
-	if (fopen(task".in", "r")) {
-		freopen(task".in", "r", stdin);
-		freopen(task".out", "w", stdout);
-	}
 	int num_queries;
 	scanf("%d %d", &num_nodes, &num_queries);
 	for (int u = 1; u <= num_nodes; u++) scanf("%d", val+u);
@@ -77,7 +66,6 @@ int main()
 	decompose(root , true);
 	parent[root] = root;
 		
-	for (int u = 1; u <= num_nodes; u++) real_val[pos[u]] = val[u];
 	solver = SegTree(num_nodes, real_val);
 		
 	for (int t,a,b; num_queries --> 0; ) {
