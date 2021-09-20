@@ -4,7 +4,9 @@ const int NUM_MODS = 4;
 const int MODS[4] = {2004010501, 998244353, (int) 1e9 + 7, (int) 1e9 + 9};
 
 int pwr[NUM_MODS][MAX];
+bool IS_COMPUTED = false;
 void init() {
+	IS_COMPUTED = true;
 	for (int t = 0; t < NUM_MODS; t++) {
 		pwr[t][0] = 1;
 		for (int i = 1; i < MAX; i++) pwr[t][i] = ((Int) pwr[t][i-1] * base) % MODS[t];
@@ -28,6 +30,7 @@ struct Value {
 struct Hash {
 	int val[NUM_MODS][MAX];
 	Hash(string s) {
+		if (!IS_COMPUTED) init();
 		int n = s.size();
 		for (int t = 0; t < NUM_MODS; t++)
 			for (int i = 1; i <= n; i++) val[t][i] = ((Int) val[t][i-1] * base + s[i-1]) % MODS[t];
