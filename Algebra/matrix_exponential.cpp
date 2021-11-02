@@ -24,4 +24,5 @@ struct Matrix {
     res = res * res;
     if (expo % 2) res = res * (*this);
     return res;
+  }
 };
