@@ -49,8 +49,10 @@ bool solve()
     ::num_comps = ::vis_turn = 0;
     for (int u = 1; u <= 2*num_nodes; u++) 
         if (!ord[u]) tarjan(u);
-    for (int u = 1; u <= num_nodes; u++) 
+    for (int u = 1; u <= num_nodes; u++) {
+	ans[u] = comp[NOT(u)] > comp[u];
         if (comp[u] == comp[NOT(u)]) return false;
+    }
     return true;
 }
 
