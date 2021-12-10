@@ -22,4 +22,4 @@ public :
   	bool same_set(int a, int b) { 
     	return find_root(a) == find_root(b);
   	}
-};
+}; //
