@@ -4,7 +4,7 @@ struct Matrix {
     Matrix() {}
     Matrix(int nrows, int ncols) : nrows(nrows), ncols(ncols) {
         val = new int*[nrows];
-        for (int r = 0; r < nrows, r++) {
+        for (int r = 0; r < nrows; r++) {
             val[r] = new int[ncols];
             for (int c = 0; c < ncols; c++) val[r][c] = 0;
         }
