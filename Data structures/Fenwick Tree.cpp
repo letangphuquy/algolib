@@ -1,3 +1,4 @@
+//ALERT : STUPID UNEXPECTED BEHAVIOR, WRONG ANSWER?
 struct Data {
     Data() {}
     Data operator+ (const Data& rhs) const { return *this; }
