@@ -12,7 +12,7 @@ struct EdmondsKarp {
 	vector<int> network[VERTEX];
 	EdmondsKarp() {}
 	
-	void add_edge(int u, int v, int cap) {
+	void add_arc(int u, int v, int cap) {
 		network[u].push_back(++E);
 		from[E] = u, to[E] = v;
 		capa[E] = cap, flow[E] = 0;
