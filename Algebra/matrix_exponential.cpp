@@ -1,3 +1,4 @@
+//dynamic array actually occupies more space
 struct Matrix {
     int nrows, ncols;
     int** val;
