@@ -14,7 +14,7 @@ void prepare(int n) {
 	fac[0] = 1;
 	for (int i = 1; i <= n; i++) fac[i] = product(fac[i-1], i);
 	inv[n] = pwr_mod(fac[n], MOD-2);
-	for (int i = n-1; i >= 0; i--) inv[i] = product(inv[i+1], i);
+	for (int i = n-1; i >= 0; i--) inv[i] = product(inv[i+1], i+1);
 }
 int combi(int n, int k) {
 	return product(fac[n], product(inv[k], inv[n-k]));
