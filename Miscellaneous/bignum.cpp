@@ -11,6 +11,14 @@ struct Num {
 		digits.clear();
 		for (;x; x /= base) digits.push_back(x % base);
 	}
+	Num(string s) {
+		while (s.size()>1 and s[0] == '0') s.erase(0,1);
+		for (int i = s.size()-1; i >= 0; i -= 9) {
+			int val = 0;
+			for (int j = max(i-9, 0); j <= i; j++) val = 10 * val + (s[j]-'0');
+			digits.push_back(val);
+		}
+	}
 	void print() const {
 		for (auto it = digits.rbegin(); it != digits.rend(); it++) {
 			if (it != digits.rbegin())
