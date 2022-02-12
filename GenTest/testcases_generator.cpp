@@ -25,7 +25,7 @@ string getTestName(int id, int w = ::width) {
 }
 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-int random(int l, int r) { return l + uniform_int_distribution<int>(0,r-l)(rng); }
+int random(int l, int r) { return uniform_int_distribution<int>(l,r)(rng); }
 
 /* Problems's variables, procedures and functions (previously-declared) */
 const int MAX = 1e5 + 500;
