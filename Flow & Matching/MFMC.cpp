@@ -33,7 +33,7 @@ struct MinimumCost {
 	int dist[VERTEX], par_edge[VERTEX];
 	bool inq[VERTEX];
 	bool found_shortest_augmenting_path() { //ford-bellman improved
-		fill(dist, dist + 1 + V, -INF);
+		fill(dist, dist + 1 + V, INF);
 		queue<int> spfa;
 		spfa.push(source);
 		dist[source] = 0;
@@ -43,7 +43,7 @@ struct MinimumCost {
 			inq[u] = false;
 			for (int& i : network[u]) if (flow[i] < capa[i]) {
 				int relax = dist[u] + cost[i];
-				if (relax > dist[to[i]]) {
+				if (relax < dist[to[i]]) {
 					par_edge[to[i]] = i;
 					dist[to[i]] = relax;
 					if (!inq[to[i]]) 
@@ -51,7 +51,7 @@ struct MinimumCost {
 				}				
 			}
 		}
-		return (dist[sink] > -INF);
+		return (dist[sink] < INF);
 	}
 	
 	int compute(int flow_cap = INF) {
