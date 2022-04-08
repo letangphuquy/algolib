@@ -24,7 +24,7 @@ struct Dinitz {
 		network[v].push_back(++E);
 		from[E] = v, to[E] = u;
 		capa[E] = flow[E] = 0; 
-		return E;
+		return E-1;
 	}
 	bool is_saturated(int e) { return flow[e] == capa[e]; }
  	
