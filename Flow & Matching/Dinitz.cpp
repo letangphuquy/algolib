@@ -16,7 +16,7 @@ struct Dinitz {
 		for (int i = 0; i <= V; i++) network[i].clear(); 
 	}
 	int from[EDGE], to[EDGE], flow[EDGE], capa[EDGE];
-	void add_arc(int u, int v, int cap) {
+	int add_arc(int u, int v, int cap) {
 		network[u].push_back(++E);
 		from[E] = u, to[E] = v;
 		capa[E] = cap, flow[E] = 0;
@@ -24,8 +24,10 @@ struct Dinitz {
 		network[v].push_back(++E);
 		from[E] = v, to[E] = u;
 		capa[E] = flow[E] = 0; 
+		return E;
 	}
-	
+	bool is_saturated(int e) { return flow[e] == capa[e]; }
+ 	
 	#define NONE -1
 	int level[VERTEX];
 	bool found_augmenting_path() {
