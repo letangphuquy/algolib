@@ -11,22 +11,14 @@ void build_suffix_array() {
 	const int n = S.size();
 	S = "." + S; //1-based index
 	/* prefix_doubling */
-	for (int i = 1; i <= n; i++)
-		val[i] = make_pair(S[i],i);
-	sort(val+1, val+1+n);
-	for (int i = 1; i <= n; i++) {
-		sa[i] = val[i].second;
-		rnk[val[i].second] = i;
-		if (i > 1)
-			rnk[val[i].second] = rnk[val[i-1].second] + (val[i-1].first < val[i].first);
-	}
-//	for (int i = 1; i <= n; i++)
-//		cerr << sa[i] << ": " << S.substr(sa[i], n-sa[i]+1) << '\n';
 	vector<int> ids(n);
 	iota(ids.begin(), ids.end(), 1);
 	for (int t = 1; t <= LG; t++) {
-		for (int i = 1, j = (1<<(t-1))+1; i <= n; i++, j++) {
-			val[i] = make_pair(rnk[i], (j <= n) ? rnk[j] : 0);
+		if (t == 0)
+			for (int i = 1; i <= n; i++) val[i] = make_pair(S[i],0);
+		else {	
+			for (int i = 1, j = (1<<(t-1))+1; i <= n; i++, j++)
+				val[i] = make_pair(rnk[i], (j <= n) ? rnk[j] : 0);
 		}
 		sort(ids.begin(), ids.end(), cmp); //should be O(n)
 		for (int i = 1; i <= n; i++) {
