@@ -4,6 +4,7 @@ const int N = 2e5 + 5;
 
 vector<int> adj[N];
 int anc[LG+1][N], depth[N];
+#define pa anc[0]
 void dfs(int u) {
 	depth[u] = depth[anc[0][u]] + 1;
 	for (int t = 1; t <= LG; t++)
