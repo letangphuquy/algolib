@@ -20,7 +20,7 @@ struct Line {
 	}
 };
 Real dist(const Point& p, const Line& d) {
-	return (d.a*p.x + d.b*p.y + d.c) / sqrt(sqr(d.a) + sqr(d.b));
+	return abs(d.a*p.x + d.b*p.y + d.c) / sqrt(sqr(d.a) + sqr(d.b));
 }
 
 const Real LIM = 1e9;
