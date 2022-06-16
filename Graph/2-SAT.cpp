@@ -5,22 +5,25 @@ typedef long long Int;
 
 const int MAX = 2e5 + 500;
 
-int num_nodes, num_conditions, pr1[MAX], pr2[MAX];
+int num_nodes; // num_conditions, pr1[MAX], pr2[MAX];
 int num_vars;
 
 vector<int> adj[MAX];
+void add_arc(int u, int v) {
+	adj[u].push_back(v);
+}
 int NOT(const int& t) { return t^1; }
-void VRAI(const int& u) { adj[NOT(u)].push_back(u); }
-void FAUX(const int& u) { adj[u].push_back(NOT(u)); }
+void VRAI(const int& u) { add_arc(NOT(u),u); }
+void FAUX(const int& u) { add_arc(u,NOT(u)); }
 void OR(const int& x, const int& y) {
-	adj[NOT(x)].push_back(y);
-	adj[NOT(y)].push_back(x);
+	add_arc(NOT(x), y);
+	add_arc(NOT(y), x);
 }
 void EQUAL(const int& x, const int& y) {
-	adj[x].push_back(y);
-	adj[y].push_back(x);
-	adj[NOT(x)].push_back(NOT(y));
-	adj[NOT(y)].push_back(NOT(x));
+	add_arc(x,y);
+	add_arc(y,x);
+	add_arc(NOT(x), NOT(y));
+	add_arc(NOT(y), NOT(x));
 }
 void NEQUAL(const int& x, const int& y) { EQUAL(x, NOT(y)); }
 
