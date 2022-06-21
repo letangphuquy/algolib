@@ -54,9 +54,7 @@ int main()
         name += "/";
         name += taskname;
         name += inpformat;
-        char * file = new char [name.length()+1];
-        strcpy(file, name.c_str());
-        freopen(file, "w", stdout);
+        freopen(name.c_str(), "w", stdout);
 	generate_input();
     }
 
@@ -67,12 +65,8 @@ int main()
         inpname += taskname;
         string outname = inpname + outformat;
         inpname += inpformat;
-        char * inpfile = new char [inpname.length()+1];
-        strcpy(inpfile, inpname.c_str());
-        char * outfile = new char [outname.length()+1];
-        strcpy(outfile, outname.c_str());
-        freopen(inpfile, "r",  stdin);
-        freopen(outfile, "w", stdout);
+        freopen(inpname.c_str(), "r",  stdin);
+        freopen(outname.c_str(), "w", stdout);
 	generate_output();
         cout.flush();
     }
