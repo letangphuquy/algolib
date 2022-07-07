@@ -1,6 +1,9 @@
 const int MOD = 1e9 + 7;
 typedef long long Int;
-void add(int &a, const int& b) { if ((a+=b) >= MOD) a -= MOD; }
+void add(int &a, const int& b) { 
+	if ((a+=b) >= MOD) a -= MOD; 
+	if (a < 0) a += MOD;
+}
 int product(const int& a, const int& b) { return (Int)a*b % MOD; }
 
 int pwr_mod(int a, int n) {
