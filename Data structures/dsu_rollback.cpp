@@ -8,14 +8,7 @@ typedef long double Real;
 #define DBG(x) cerr << #x << " = " << x << ' ';
 #define DBGn(x) cerr << #x << " = " << x << '\n';
 
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-Int random(const Int& l, const Int& r) {
-	return uniform_int_distribution<Int>(l,r)(rng);
-}
-template<class A, class B>
-	void maximize(A& var, const B& val) { if (val > var) var = val; }
-template<class A, class B>
-	void minimize(A& var, const B& val) { if (val < var) var = val; }
+//https://codeforces.com/edu/course/2/lesson/7/3/practice/contest/289392/problem/A
 
 class DSU_rollback {
 private :
@@ -87,33 +80,4 @@ public :
 	}
 } dsu;
 
-int main()
-{
-	ios::sync_with_stdio(false);
-	cin.tie(nullptr);
-
-	{
-		cerr << "TESTING POINTER\n";
-		typedef pair<int*,int> Event;
-		int val = -1;
-		Event ev = make_pair(&val, val);
-		val = 0;
-		cerr << "After change: "; DBGn(val);
-		*ev.first = ev.second;
-		cerr << "After rollback: "; DBGn(val);
-	}
-	int n,m;
-	cin >> n >> m;
-	dsu.init(n);
-	while (m --> 0) {
-		string typ; cin >> typ;
-		if (typ == "union") {
-			int u,v; cin >> u >> v;
-			dsu.unite(u,v);
-		} else 
-		if (typ == "persist")
-			dsu.persist();
-		else
-			dsu.rollback();
-	}
-}
+void main() {}
