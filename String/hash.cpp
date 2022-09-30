@@ -1,7 +1,8 @@
 const int MAX = 1e5 + 500;
 
+const int base = 257;
 const int NUM_MODS = 4;
-const int MODS[4] = {2004010501, 998244353, (int) 1e9 + 7, (int) 1e9 + 9};
+const int MODS[] = {2004010501, 998244353, (int) 1e9 + 7, (int) 1e9 + 9};
 
 int pwr[NUM_MODS][MAX];
 bool IS_COMPUTED = false;
@@ -13,33 +14,28 @@ void init() {
 	}
 }
 
-struct Value {
-	int d[NUM_MODS];
-	Value() {}
-	bool operator< (const Value& rhs) const {
-		for (int t = 0; t < NUM_MODS; t++) 
-			if (d[t] != rhs.d[t]) return d[t] < rhs.d[t];
-		return false;
-	}
-	bool operator== (const Value& rhs) const {
-		for (int t = 0; t < NUM_MODS; t++) if (d[t] != rhs.d[t]) return false;
-		return true;
-	}
-};
+typedef array<int,NUM_MODS> HValue;
 
 struct Hash {
-	int val[NUM_MODS][MAX];
+	vector<HValue> val;
+	Hash() {
+		val.clear();
+		val.push_back(HValue);
+	}
+	void add_char(char c) {
+		val.push_back(val.back());
+		for (int t = 0; t < NUM_MODS; t++)
+			val.back()[t] = ((Int) val.back()[t] * base + c) % MODS[t];
+	}
 	Hash(string s) {
 		if (!IS_COMPUTED) init();
-		int n = s.size();
-		for (int t = 0; t < NUM_MODS; t++)
-			for (int i = 1; i <= n; i++) val[t][i] = ((Int) val[t][i-1] * base + s[i-1]) % MODS[t];
+		for (auto c : s) add_char(c);
 	}
-	Value get_hash(const int& l, const int& r) const {
-		Value res;
+	HValue get_hash(const int& l, const int& r) const {
+		HValue res;
 		for (int t = 0; t < NUM_MODS; t++) {
-			res.d[t] = ((Int)-val[t][l-1] * pwr[t][r-l+1] + val[t][r]) % MODS[t];
-			if (res.d[t] < 0) res.d[t] += MODS[t];
+			res[t] = ((Int)-val[l-1][t] * pwr[t][r-l+1] + val[r][t]) % MODS[t];
+			if (res[t] < 0) res[t] += MODS[t];
 		}
 		return res;
 	}
