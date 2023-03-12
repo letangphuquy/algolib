@@ -3,6 +3,7 @@ private :
 	int size; int* label;
 public :
 	DisjointSet(int size) : size(size) {
+		if (label != nullptr) delete label;
 		label = new int[size + 1];
 		for (int i = 0; i <= size; i++) label[i] = -1;
 	}
