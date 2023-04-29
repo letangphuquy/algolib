@@ -24,22 +24,26 @@ string getTestName(int id, int w = ::width) {
 
 //Pass in more arguments (to both function calls & command line) if needed.
 //for example, -flag, --option value (just like testlib.h of CF Polygon)
-void generate_input(string fname) {
-    system(("input_gen.exe " + fname).c_str());
+
+void generate_input(string fname, vector<string> opts = {}) {
+	string command = "input_gen.exe " + fname;
+	for (auto opt : opts) command += " " + opt;
+	system(command.c_str());
 }
 
-void generate_output(string solname, string inpname, string outname) {
-	system((solname + ".exe " + inpname + " " + outname).c_str());
+void generate_output(string inpname, string outname, vector<string> opts = {}) {
+	string command = "output_gen.exe " + inpname + " " + outname;
+	for (auto opt : opts) command += " " + opt;
+	system(command.c_str());
 }
 
 int main()
 {
     /**          GENERATE INPUT          **/
-    // if (0)
     for (int test_id = 1; test_id <= num_tests; test_id++) {
         string fname = getTestName(test_id) + "/" + taskname + inpformat;
-		generate_input(fname);
-		cerr << "done INP " << test_id << '\n';
+	generate_input(fname);
+	cerr << "done INP " << test_id << '\n';
     }
 
     /**          GENERATE OUTPUT          **/
@@ -47,9 +51,8 @@ int main()
         string name = getTestName(test_id) + "/" + taskname;
         string inpname = name + inpformat;
         string outname = name + outformat;
-		generate_output("output_gen", inpname, outname);
-		cerr << "done OUT " << test_id << '\n';
+	generate_output(inpname, outname);
+	cerr << "done OUT " << test_id << '\n';
     }
 }
 
-/** Declare here **/
